@@ -1,8 +1,8 @@
 spring:
   datasource:
-    # initialization-mode: never 
-    initialization-mode: always 
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:8889}/banking_core_service_new
+    initialization-mode: never 
+    # initialization-mode: always 
+    url: jdbc:mysql://localhost:8889/banking_core_service_new?enabledTLSProtocols=TLSv1.2
     username: root
     password: root
   jpa:
@@ -12,15 +12,18 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   cloud:
     stream:
       function:
-        definition: producer;
+        definition: producer
       bindings:
         producer-out-0:
           destination: notification-topic
-
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
 logging:
   level:
     org:
@@ -32,9 +35,13 @@ logging:
 kafka:
   binding:
     name: producer-out-0
-
+    
 server:
   port: 8092
+  error:
+      include-binding-errors: always
+      include-message: always
+  
 
 eureka:
   client:
