@@ -1,7 +1,7 @@
 spring:
   datasource:
     initialization-mode: always 
-    # initialization-mode: always 
+    # initialization-mode: never  // once schema is created keep initialization mode never 
     url: jdbc:mysql://localhost:8889/banking_core_service?enabledTLSProtocols=TLSv1.2
     username: root
     password: root
