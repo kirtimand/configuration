@@ -1,0 +1,36 @@
+spring:
+  cloud:
+    stream:
+      function:
+        definition: consumer
+
+      bindings:
+         consumer-in-0:
+          destination: notification-topic
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: TRACE
+server:
+  port: 8093
+
+eureka:
+  client:
+    registerWithEureka: true
+    serviceUrl: 
+      defaultZone: ${EUREKA_SERVER:http://localhost:8083/eureka}
+    healthcheck:
+      enabled: true
+
+
+info:
+  app:
+    name: ${spring.application.name}
